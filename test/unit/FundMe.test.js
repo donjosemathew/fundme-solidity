@@ -18,15 +18,17 @@ describe("fundme", function () {
     });
   });
   describe("fund", async function () {
-    it("Fails if you don't send ether", async function () {
+    it("Fails if you don't send enough ETH", async () => {
       await expect(fundMe.fund()).to.be.revertedWith(
-        "You need to spend more ETHS"
+        "You need to spend more ETH!"
       );
     });
-    it("updated the amount funded data structure", async function () {
+
+    it("Updates the amount funded data structure", async () => {
       await fundMe.fund({ value: sendValue });
-      const response = await fundMe.addressToAmountFunded(deployer.address);
+      const response = await fundMe.getAddressToAmountFunded(deployer);
       assert.equal(response.toString(), sendValue.toString());
     });
   });
 });
+//11.30
